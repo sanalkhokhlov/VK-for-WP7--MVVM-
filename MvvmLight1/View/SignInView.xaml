@@ -1,0 +1,59 @@
+﻿<phone:PhoneApplicationPage
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+                            xmlns:Utility="clr-namespace:MvvmLight1.Utility"
+                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            x:Class="MvvmLight1.View.SignInView"
+                            mc:Ignorable="d"
+                            d:DesignWidth="480"
+                            d:DesignHeight="800"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            SupportedOrientations="PortraitOrLandscape"
+                            Orientation="Portrait"
+                            shell:SystemTray.IsVisible="False"
+                            DataContext="{Binding SignIn, Source={StaticResource Locator}}">
+	<i:Interaction.Triggers>
+		<i:EventTrigger>
+			<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding SingInPageOnNavigatedToCommand, Mode=OneWay}"/>
+		</i:EventTrigger>
+	</i:Interaction.Triggers>
+
+    <Grid x:Name="LayoutRoot"
+          Background="Transparent">
+        <phone:WebBrowser
+            Name="webBrowser"
+            IsScriptEnabled="True"
+            Utility:WebBrowserUtility.BindableSource="{Binding AuthUri, Mode=OneTime}"
+            Navigated="WebBrowserNavigated">
+        	<i:Interaction.Triggers>
+        		<i:EventTrigger EventName="Navigating">
+        			<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding WebBrowserNavigatingCommand, Mode=OneWay}"/>
+        		</i:EventTrigger>
+        		<i:EventTrigger EventName="Navigated">
+                    <GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding WebBrowserNavigatedCommand, Mode=TwoWay}" CommandParameter="{Binding Source, ElementName=webBrowser}"/>
+        		</i:EventTrigger>
+        	</i:Interaction.Triggers>
+        </phone:WebBrowser>
+        <toolkit:PerformanceProgressBar VerticalAlignment="Top" IsIndeterminate="{Binding Loading}" />
+    </Grid>
+
+    <!--Sample code showing usage of ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</phone:PhoneApplicationPage>
