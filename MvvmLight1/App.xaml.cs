@@ -60,7 +60,7 @@ namespace MvvmLight1
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            GlobalVkClient = new VkClient("2449855", "441407", "touch");
+            GlobalVkClient = new VkClient("2449855", "965695", "touch");
             GlobalVkClient.Start(AccessInfoStore.Load());
 
         }

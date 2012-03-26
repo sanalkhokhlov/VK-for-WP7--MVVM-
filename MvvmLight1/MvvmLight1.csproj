@@ -86,9 +86,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
-    <Reference Include="VkWP">
-      <HintPath>Lib\VkWP.dll</HintPath>
-    </Reference>
+    <Reference Include="VkWP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">

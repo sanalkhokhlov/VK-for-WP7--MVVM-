@@ -30,8 +30,13 @@ namespace MvvmLight1.ViewModel
         private ICommand _loadDataCommand;
         private string _status;
 
-
         private void LoadDataAction()
+        {
+            LoadMainViewInfo();
+            //LoadNotification();
+        }
+
+        private void LoadMainViewInfo()
         {
             if (!App.GlobalVkClient.Active)
             {
@@ -81,6 +86,23 @@ namespace MvvmLight1.ViewModel
                     Loading = false;
                 },
                     (error) => Debug.WriteLine(error.Message));
+        }
+
+        private void LoadNotification()
+        {
+            if (!App.GlobalVkClient.Active)
+            {
+                Login();
+                return;
+            }
+            Loading = true;
+            App.GlobalVkClient.GetNotifications(
+                (response)=>
+                    {
+                        if (response == null) return;
+                        var tem = response;
+                    },
+                    error=>Debug.WriteLine(error.Message));
         }
 
         private void Login()
