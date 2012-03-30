@@ -25,22 +25,67 @@
         <toolkit:RelativeTimeConverter x:Key="RelativeTimeConverter" />
         <DataTemplate x:Name="PostAttachmentImage">
             <StackPanel>
-                <Image MaxHeight="100" MaxWidth="100" Margin="12,10,0,0" Stretch="None">
-                    <Image.Source>
+                <Image MaxHeight="100" MaxWidth="100" Margin="12,10,0,0" Stretch="None" Source="{Binding Photo.Src}">
+                    <!--<Image.Source>
                         <BitmapImage UriSource="{Binding Photo.Src}" CreateOptions="BackgroundCreation" />
-                    </Image.Source>
+                    </Image.Source>-->
                 </Image>
             </StackPanel>
         </DataTemplate>
-        
+        <!--Шaблон для группы друзей в режиме просмотра элементов (друзей)-->
+        <DataTemplate x:Key="FriendGroupHeader">
+            <Border Background="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,15,0,0" Width="50" Height="50">
+                <TextBlock Text="{Binding Title}" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="{StaticResource PhoneBackgroundBrush}"/>
+            </Border>
+        </DataTemplate>
+        <!--Шaблон для группы друзей в режиме просмотра групп-->
+        <DataTemplate x:Key="FriendGroupItem" >
+            <Border Background="{StaticResource PhoneAccentBrush}" Width="100" Height="100" Margin="6">
+                <TextBlock Text="{Binding Title}" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource PhoneBackgroundBrush}"/>
+            </Border>
+        </DataTemplate>
         <DataTemplate x:Name="FeedListItem">
-            <Grid Margin="0,0,0,18">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <Grid Margin="0,0,0,40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-                <Image Grid.Column="0" VerticalAlignment="Top" Margin="20,20,10,0" Width="50" Height="50">
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <Image VerticalAlignment="Top" Stretch="UniformToFill">
+                        <Image.Source>
+                            <BitmapImage UriSource="{Binding Author.Photo}"  CreateOptions="BackgroundCreation"/>
+                        </Image.Source>
+                    </Image>
+                    <StackPanel VerticalAlignment="Top" Margin="10,-12,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Text="{Binding Author.FirstName}"
+                                TextWrapping="Wrap"
+                                Style="{StaticResource PhoneTextTitle2Style}"
+                                Margin="0,0,-10,0"/>
+                            <TextBlock Text="{Binding Author.LastName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}"/>
+                        </StackPanel>
+                        <TextBlock
+                            Text="{Binding PostDate, Converter={StaticResource RelativeTimeConverter}}"
+                            TextWrapping="Wrap" 
+                            Foreground="{StaticResource PhoneSubtleBrush}" 
+                            Style="{StaticResource PhoneTextSubtleStyle}"
+                            Margin="0,-5,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Margin="-12,0,0,0">
+                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" />
+                    <ItemsControl ItemsSource="{Binding Path=Attachments}" ItemTemplate="{StaticResource PostAttachmentImage}" HorizontalAlignment="Left">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+
+                <!--<Image Grid.Column="0" VerticalAlignment="Top" Margin="20,20,10,0" Width="50" Height="50">
                     <Image.Source>
                         <BitmapImage UriSource="{Binding Author.Photo}" CreateOptions="BackgroundCreation"/>
                     </Image.Source>
@@ -50,9 +95,15 @@
                         <TextBlock Text="{Binding Author.FirstName}" Margin="12,0,0,0" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}"/>
                         <TextBlock Text="{Binding Author.LastName}" Margin="5,0,0,0" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}"/>
                     </StackPanel>
+                    
                     <StackPanel Orientation="Vertical">
+                        <TextBlock
+                            Text="{Binding PostDate,Converter={StaticResource RelativeTimeConverter}}"
+                            TextWrapping="Wrap" 
+                            Foreground="{StaticResource PhoneSubtleBrush}" 
+                            Style="{StaticResource PhoneTextSubtleStyle}" />
                         <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" />
-                        <TextBlock Text="{Binding PostDate,Converter={StaticResource RelativeTimeConverter}}" TextWrapping="Wrap" Foreground="{StaticResource PhoneSubtleBrush}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                        
                     </StackPanel>
                     <ItemsControl ItemsSource="{Binding Path=Attachments}" ItemTemplate="{StaticResource PostAttachmentImage}" HorizontalAlignment="Left">
                         <ItemsControl.ItemsPanel>
@@ -61,8 +112,34 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
-                </StackPanel>
+                </StackPanel>-->
             </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Name="FriendsListItem">
+            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                <Image VerticalAlignment="Top" Stretch="UniformToFill">
+                    <Image.Source>
+                        <BitmapImage UriSource="{Binding Photo}" CreateOptions="BackgroundCreation"/>
+                    </Image.Source>
+                </Image>
+                <StackPanel VerticalAlignment="Center" Margin="10,-12,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                                Text="{Binding FirstName}"
+                                TextWrapping="Wrap"
+                                Style="{StaticResource PhoneTextTitle2Style}"
+                                Margin="0,0,-10,0"/>
+                        <TextBlock Text="{Binding LastName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}"/>
+                    </StackPanel>
+                    <TextBlock
+                            Text="{Binding PostDate, Converter={StaticResource RelativeTimeConverter}}"
+                            TextWrapping="Wrap" 
+                            Foreground="{StaticResource PhoneSubtleBrush}" 
+                            Style="{StaticResource PhoneTextSubtleStyle}"
+                            Margin="0,-5,0,0"/>
+                </StackPanel>
+            </StackPanel>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
@@ -75,8 +152,8 @@
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot"
 	      Background="Transparent">
-        <controls:Panorama>
-            <controls:Panorama.TitleTemplate>
+        <controls:Panorama Title="вконтакте">
+            <!--<controls:Panorama.TitleTemplate>
                 <DataTemplate>
                     <StackPanel Height="190" Width="300">
                         <Image Source="Images\logo.png" Margin="5,80,0,0"/>
@@ -85,72 +162,114 @@
             </controls:Panorama.TitleTemplate>
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="Images\background.png" />
-            </controls:Panorama.Background>
+            </controls:Panorama.Background>-->
             <controls:PanoramaItem>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                <!--<TextBlock Text="новости" Style="{StaticResource PhoneTextTitle1Style}" Margin="12,-40,0,0"/>-->
+                <ListBox
+                    ItemTemplate="{StaticResource FeedListItem}"
+                    ItemsSource="{Binding DataSource}"
+                    SelectedItem="{Binding SelectedFeed}"
+                    Margin="12,-55,0,0">
+                    <ListBox.Template>
+                        <ControlTemplate>
+                            <ScrollViewer>
+                                <StackPanel>
+                                    <TextBlock Text="новости" Style="{StaticResource PhoneTextTitle1Style}" Margin="-4,-20,0,20"/>
+                                    <ItemsPresenter/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ListBox.Template>
+                </ListBox>
+            </controls:PanoramaItem>
+            <controls:PanoramaItem>
+                <toolkit:LongListSelector
+                    ItemTemplate="{StaticResource FriendsListItem}"
+                    ItemsSource="{Binding FriendsDataSource}"
+                    GroupHeaderTemplate="{StaticResource FriendGroupHeader}"
+                    GroupItemTemplate="{StaticResource FriendGroupItem}"
+                    Margin="12,-55,0,0">
+                    <!--<toolkit:LongListSelector.Template>
+                        <ControlTemplate>
+                            <ScrollViewer>
+                                <StackPanel>
+                                    <Grid Margin="12,20,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="новости" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" Margin="12,-40,0,0"/>
-                    <ListBox
-                        Grid.Row="1"
-                        ItemTemplate="{StaticResource FeedListItem}"
-                        ItemsSource="{Binding DataSource}"
-                        SelectedItem="{Binding SelectedFeed}"
-                        Margin="0,22,0,0"/>
-                </Grid>
-            </controls:PanoramaItem>
-            <controls:PanoramaItem>
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock Text="уведомления" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" Margin="12,-40,0,0"/>
-                    </StackPanel>
-                </ScrollViewer>
-            </controls:PanoramaItem>
-            <controls:PanoramaItem>
-                <StackPanel>
-                    <TextBlock Text="фото" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" Margin="12,-40,0,0"/>
-                    <toolkit:WrapPanel />
-                </StackPanel>
-            </controls:PanoramaItem>
-            <controls:PanoramaItem>
-                <Grid Margin="12,80,0,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" VerticalAlignment="Top" Width="100" Height="100" Stretch="UniformToFill" Source="{Binding UserProfile.PhotoMedium}">
+                                            </Image>
+                                            <edc:Callout
+                                                Grid.Column="1" 
+                                                Margin="15,0,0,0"
+                                                AnchorPoint="-0.05,0.35"
+                                                CalloutStyle="Rectangle"
+                                                Content="{Binding Status}"
+                                                FontSize="20"
+                                                Height="100"
+                                                Fill="#FFC6D0DA"
+                                                Foreground="Black"/>
+                                        </Grid>
+                                    </Grid>
+                                    <ItemsPresenter />
+                                </StackPanel>
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </toolkit:LongListSelector.Template>-->
+                    <toolkit:LongListSelector.GroupItemsPanel>
+                        <ItemsPanelTemplate>
+                            <toolkit:WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </toolkit:LongListSelector.GroupItemsPanel>
+                    <!--<ListBox.Template>
+                        <ControlTemplate>
+                            <ScrollViewer>
+                                <StackPanel>
+                                    <Grid Margin="12,20,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
 
-                        <Image Grid.Column="0" VerticalAlignment="Top" Width="100" Height="100" Stretch="UniformToFill">
-                            <Image.Source>
-                                <BitmapImage UriSource="{Binding UserProfile.PhotoMedium}" CreateOptions="BackgroundCreation" />
-                            </Image.Source>
-                        </Image>
-                        <edc:Callout
-                            Grid.Column="1" 
-                            Margin="15,0,0,0"
-                            AnchorPoint="-0.05,0.35"
-                            CalloutStyle="Rectangle"
-                            Content="{Binding Status}"
-                            FontSize="20"
-                            Height="100"
-                            Fill="#FFC6D0DA"
-                            Foreground="Black"/>
-                    </Grid>
-                </Grid>
+                                            <Image Grid.Column="0" VerticalAlignment="Top" Width="100" Height="100" Stretch="UniformToFill" Source="{Binding UserProfile.PhotoMedium}">
+                                            </Image>
+                                            <edc:Callout
+                                                Grid.Column="1" 
+                                                Margin="15,0,0,0"
+                                                AnchorPoint="-0.05,0.35"
+                                                CalloutStyle="Rectangle"
+                                                Content="{Binding Status}"
+                                                FontSize="20"
+                                                Height="100"
+                                                Fill="#FFC6D0DA"
+                                                Foreground="Black"/>
+                                        </Grid>
+                                    </Grid>
+                                    <ItemsPresenter/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ListBox.Template>-->
+                </toolkit:LongListSelector>
             </controls:PanoramaItem>
         </controls:Panorama>
         <toolkit:PerformanceProgressBar VerticalAlignment="Top" IsIndeterminate="{Binding Loading}" />
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Minimized" BackgroundColor="#FFC6D0DA" ForegroundColor="Black">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Minimized">
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="обновить"/>
                 <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="настройки"/>
