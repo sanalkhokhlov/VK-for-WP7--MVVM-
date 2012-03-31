@@ -150,7 +150,15 @@ namespace VkWP.Models
             {
                 if (_photoMedium != value)
                 {
-                    _photoMedium = value;
+                    if (value.IndexOf(".gif") == -1)
+                    {
+                        _photoMedium = value;
+
+                    }
+                    else
+                    {
+                        _photoMedium = "Images/nophoto2.jpg";//Вставляем заглушку при отсутсвии фотографии, т.к. BitmapImage  не поддерживает gif
+                    }
                     RaisePropertyChanged("PhotoMedium");
                 }
             }
