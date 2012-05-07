@@ -25,16 +25,16 @@
         <toolkit:RelativeTimeConverter x:Key="RelativeTimeConverter" />
         <DataTemplate x:Name="PostAttachmentImage">
             <StackPanel>
-                <Image MaxHeight="100" MaxWidth="100" Margin="12,10,0,0" Stretch="None" Source="{Binding Photo.Src}">
-                    <!--<Image.Source>
+                <Image MaxHeight="100" MaxWidth="100" Margin="12,10,0,0" Stretch="None">
+                    <Image.Source>
                         <BitmapImage UriSource="{Binding Photo.Src}" CreateOptions="BackgroundCreation" />
-                    </Image.Source>-->
+                    </Image.Source>
                 </Image>
             </StackPanel>
         </DataTemplate>
         <!--Шaблон для группы друзей в режиме просмотра элементов (друзей)-->
         <DataTemplate x:Key="FriendGroupHeader">
-            <Border Background="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,15,0,0" Width="50" Height="50">
+            <Border Background="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,15,0,0" Width="75" Height="75">
                 <TextBlock Text="{Binding Title}" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="{StaticResource PhoneForegroundBrush}"/>
             </Border>
         </DataTemplate>
@@ -81,7 +81,7 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <Image VerticalAlignment="Top" Stretch="UniformToFill">
+                    <Image VerticalAlignment="Top" Stretch="UniformToFill" Width="75" Height="75">
                         <Image.Source>
                             <BitmapImage UriSource="{Binding Author.Photo}"  CreateOptions="BackgroundCreation"/>
                         </Image.Source>
@@ -147,11 +147,16 @@
 
         <DataTemplate x:Name="FriendsListItem">
             <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
-                <Image VerticalAlignment="Top" Stretch="UniformToFill">
-                    <Image.Source>
-                        <BitmapImage UriSource="{Binding Photo}" CreateOptions="BackgroundCreation"/>
-                    </Image.Source>
-                </Image>
+                <StackPanel Width="75" Height="75">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="Images/nophoto.jpg" Stretch="UniformToFill" />
+                    </StackPanel.Background>
+                    <Image Grid.Row="0" VerticalAlignment="Top" Stretch="UniformToFill" Width="75" Height="75">
+                        <Image.Source>
+                            <BitmapImage UriSource="{Binding Photo}" CreateOptions="BackgroundCreation"/>
+                        </Image.Source>
+                    </Image>
+                </StackPanel>
                 <StackPanel VerticalAlignment="Center" Margin="10,-12,0,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock

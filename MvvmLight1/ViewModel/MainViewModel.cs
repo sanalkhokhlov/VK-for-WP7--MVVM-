@@ -29,7 +29,7 @@ namespace MvvmLight1.ViewModel
         private FeedItem _selectedFeed;
         private ProfileItem _userProfile;
         private ObservableCollection<FeedItem> _feedDataSource;
-        public ObservableCollection<ProfileItem> _friendsDataSource=new ObservableCollection<ProfileItem>();
+        public ObservableCollection<ProfileItem> _friendsDataSource = new ObservableCollection<ProfileItem>();
         private ICommand _loadDataCommand;
         private string _status;
 
@@ -68,7 +68,7 @@ namespace MvvmLight1.ViewModel
                         {
                             case "post":
                                 {
-                                    if (feed.Text.Length > 100) feed.Text = feed.Text.Substring(0, 100) + "...";
+                                    if (feed.Text.Length > 140) feed.Text = feed.Text.Substring(0, 140) + "...";
                                     break;
                                 }
                             default:
@@ -173,7 +173,14 @@ namespace MvvmLight1.ViewModel
             get { return _status; }
             set
             {
-                _status = value;
+                if (value != string.Empty)
+                {
+                    _status = value;
+                }
+                else
+                {
+                    _status = " ";
+                }
                 RaisePropertyChanged("Status");
             }
         }

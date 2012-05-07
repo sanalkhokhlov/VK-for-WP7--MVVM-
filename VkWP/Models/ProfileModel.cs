@@ -157,7 +157,7 @@ namespace VkWP.Models
                     }
                     else
                     {
-                        _photoMedium = "Images/nophoto2.jpg";//Вставляем заглушку при отсутсвии фотографии, т.к. BitmapImage  не поддерживает gif
+                        _photoMedium = "Images/nophoto.jpg";//Вставляем заглушку при отсутсвии фотографии, т.к. BitmapImage  не поддерживает gif
                     }
                     RaisePropertyChanged("PhotoMedium");
                 }
