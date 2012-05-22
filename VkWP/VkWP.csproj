@@ -65,7 +65,7 @@
     <Compile Include="Client\ViewInfo.cs" />
     <Compile Include="Client\VkClient.cs" />
     <Compile Include="Exceptions\VkException.cs" />
-    <Compile Include="Helpers\HtmlDecoder.cs" />
+    <Compile Include="Helpers\TextPreprocessor.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
     <Compile Include="Models\AttachmentModel.cs" />
     <Compile Include="Models\FeedModel.cs" />

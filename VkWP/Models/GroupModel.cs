@@ -31,7 +31,7 @@ namespace VkWP.Models
 
         public string Name
         {
-            get { return HtmlDecoder.Decode(_name); }
+            get { return TextPreprocessor.Decode(_name); }
             set
             {
                 if (_name != value)

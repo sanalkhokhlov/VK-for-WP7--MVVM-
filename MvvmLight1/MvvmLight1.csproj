@@ -136,7 +136,7 @@
     <Content Include="Images\background.png" />
     <Content Include="Images\logo.png" />
     <Resource Include="Images\nophoto.jpg" />
-    <Resource Include="Images\nophoto2.jpg" />
+    <Resource Include="Images\nophoto2.png" />
     <Content Include="Images\Sample\1.jpg" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />

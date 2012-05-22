@@ -1,51 +1,67 @@
-﻿<phone:PhoneApplicationPage
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
-    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71" xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:edc="clr-namespace:Microsoft.Expression.Controls;assembly=Microsoft.Expression.Drawing"
-    x:Class="MvvmLight1.MainPage"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait"
-    Orientation="Portrait"
-    mc:Ignorable="d"
-    d:DesignWidth="480"
-    d:DesignHeight="728"
-    shell:SystemTray.IsVisible="False"
-    DataContext="{Binding Main, Source={StaticResource Locator}}"
-    toolkit:TiltEffect.IsTiltEnabled="True">
+﻿<phone:PhoneApplicationPage x:Class="MvvmLight1.MainPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:edc="clr-namespace:Microsoft.Expression.Controls;assembly=Microsoft.Expression.Drawing"
+                            xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            d:DesignHeight="728"
+                            d:DesignWidth="480"
+                            DataContext="{Binding Main,
+                                                  Source={StaticResource Locator}}"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            Orientation="Portrait"
+                            shell:SystemTray.IsVisible="False"
+                            SupportedOrientations="Portrait"
+                            toolkit:TiltEffect.IsTiltEnabled="True"
+                            mc:Ignorable="d">
 
     <phone:PhoneApplicationPage.Resources>
         <toolkit:RelativeTimeConverter x:Key="RelativeTimeConverter" />
         <DataTemplate x:Name="PostAttachmentImage">
             <StackPanel>
-                <Image MaxHeight="100" MaxWidth="100" Margin="12,10,0,0" Stretch="None">
+                <Image MaxWidth="100"
+                       MaxHeight="100"
+                       Margin="12,10,0,0"
+                       Stretch="None">
                     <Image.Source>
-                        <BitmapImage UriSource="{Binding Photo.Src}" CreateOptions="BackgroundCreation" />
+                        <BitmapImage CreateOptions="BackgroundCreation" UriSource="{Binding Photo.Src}" />
                     </Image.Source>
                 </Image>
             </StackPanel>
         </DataTemplate>
-        <!--Шaблон для группы друзей в режиме просмотра элементов (друзей)-->
+        <!--  Шaблон для группы друзей в режиме просмотра элементов (друзей)  -->
         <DataTemplate x:Key="FriendGroupHeader">
-            <Border Background="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,15,0,0" Width="75" Height="75">
-                <TextBlock Text="{Binding Title}" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="{StaticResource PhoneForegroundBrush}"/>
+            <Border Width="75"
+                    Height="75"
+                    Margin="0,15,0,0"
+                    HorizontalAlignment="Left"
+                    Background="{StaticResource PhoneAccentBrush}">
+                <TextBlock FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                           Foreground="{StaticResource PhoneForegroundBrush}"
+                           Text="{Binding Title}" />
             </Border>
         </DataTemplate>
-        <!--Шaблон для группы друзей в режиме просмотра групп-->
-        <DataTemplate x:Key="FriendGroupItem" >
-            <Border Background="{StaticResource PhoneAccentBrush}" Width="100" Height="100" Margin="6">
-                <TextBlock Text="{Binding Title}" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource PhoneForegroundBrush}"/>
+        <!--  Шaблон для группы друзей в режиме просмотра групп  -->
+        <DataTemplate x:Key="FriendGroupItem">
+            <Border Width="100"
+                    Height="100"
+                    Margin="6"
+                    Background="{StaticResource PhoneAccentBrush}">
+                <TextBlock FontSize="{StaticResource PhoneFontSizeLarge}"
+                           Foreground="{StaticResource PhoneForegroundBrush}"
+                           Text="{Binding Title}" />
             </Border>
         </DataTemplate>
-        <!--Шаблон заголовка для списка друзей (содержит фото и статус владельца аккаунта)-->
-        <DataTemplate x:Key="FriendListHeader" >
+        <!--  Шаблон заголовка для списка друзей (содержит фото и статус владельца аккаунта)  -->
+        <DataTemplate x:Key="FriendListHeader">
             <StackPanel>
                 <Grid Margin="0,20,5,0" DataContext="{Binding Main, Source={StaticResource Locator}}">
                     <Grid.RowDefinitions>
@@ -54,20 +70,23 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <Grid Grid.Column="0">
-                            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Stretch="UniformToFill" Source="{Binding UserProfile.PhotoMedium}">
-                            </Image>
+                            <Image Width="100"
+                                   Height="100"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Source="{Binding UserProfile.PhotoMedium}"
+                                   Stretch="UniformToFill" />
                         </Grid>
                         <Grid Grid.Column="1">
-                            <edc:Callout
-                            HorizontalAlignment="Center"
-                            Margin="115,0,0,0"
-                            AnchorPoint="-0.05,0.35"
-                            CalloutStyle="Rectangle"
-                            Content="{Binding Status}"
-                            FontSize="{StaticResource PhoneFontSizeMedium}"
-                            Height="100"
-                            Fill="{StaticResource PhoneAccentBrush}"
-                            Foreground="{StaticResource PhoneForegroundBrush}"/>
+                            <edc:Callout Height="100"
+                                         Margin="115,0,0,0"
+                                         HorizontalAlignment="Center"
+                                         AnchorPoint="-0.05,0.35"
+                                         CalloutStyle="Rectangle"
+                                         Content="{Binding Status}"
+                                         Fill="{StaticResource PhoneAccentBrush}"
+                                         FontSize="{StaticResource PhoneFontSizeMedium}"
+                                         Foreground="{StaticResource PhoneForegroundBrush}" />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -80,32 +99,40 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <Image VerticalAlignment="Top" Stretch="UniformToFill" Width="75" Height="75">
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Image Width="75"
+                           Height="75"
+                           VerticalAlignment="Top"
+                           Stretch="UniformToFill">
                         <Image.Source>
-                            <BitmapImage UriSource="{Binding Author.Photo}"  CreateOptions="BackgroundCreation"/>
+                            <BitmapImage CreateOptions="BackgroundCreation" UriSource="{Binding Author.Photo}" />
                         </Image.Source>
                     </Image>
-                    <StackPanel VerticalAlignment="Top" Margin="10,-12,0,0">
+                    <StackPanel Margin="10,-12,0,0" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Text="{Binding Author.FirstName}"
-                                TextWrapping="Wrap"
-                                Style="{StaticResource PhoneTextTitle2Style}"
-                                Margin="0,0,-10,0"/>
-                            <TextBlock Text="{Binding Author.LastName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}"/>
+                            <TextBlock Margin="0,0,-10,0"
+                                       Style="{StaticResource PhoneTextTitle2Style}"
+                                       Text="{Binding Author.FirstName}"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Style="{StaticResource PhoneTextTitle2Style}"
+                                       Text="{Binding Author.LastName}"
+                                       TextWrapping="Wrap" />
                         </StackPanel>
-                        <TextBlock
-                            Text="{Binding PostDate, Converter={StaticResource RelativeTimeConverter}}"
-                            TextWrapping="Wrap" 
-                            Foreground="{StaticResource PhoneSubtleBrush}" 
-                            Style="{StaticResource PhoneTextSubtleStyle}"
-                            Margin="0,-5,0,0"/>
+                        <TextBlock Margin="0,-5,0,0"
+                                   Foreground="{StaticResource PhoneSubtleBrush}"
+                                   Style="{StaticResource PhoneTextSubtleStyle}"
+                                   Text="{Binding PostDate,
+                                                  Converter={StaticResource RelativeTimeConverter}}"
+                                   TextWrapping="Wrap" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Margin="-12,0,0,0">
-                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" />
-                    <ItemsControl ItemsSource="{Binding Path=Attachments}" ItemTemplate="{StaticResource PostAttachmentImage}" HorizontalAlignment="Left">
+                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}"
+                               Text="{Binding PreviewText}"
+                               TextWrapping="Wrap" />
+                    <ItemsControl HorizontalAlignment="Left"
+                                  ItemsSource="{Binding Path=Attachments}"
+                                  ItemTemplate="{StaticResource PostAttachmentImage}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal" />
@@ -114,64 +141,70 @@
                     </ItemsControl>
                 </StackPanel>
 
-                <!--<Image Grid.Column="0" VerticalAlignment="Top" Margin="20,20,10,0" Width="50" Height="50">
+                <!--
+                    <Image Grid.Column="0" VerticalAlignment="Top" Margin="20,20,10,0" Width="50" Height="50">
                     <Image.Source>
-                        <BitmapImage UriSource="{Binding Author.Photo}" CreateOptions="BackgroundCreation"/>
+                    <BitmapImage UriSource="{Binding Author.Photo}" CreateOptions="BackgroundCreation"/>
                     </Image.Source>
-                </Image>
-                <StackPanel Grid.Column="1">
+                    </Image>
+                    <StackPanel Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Author.FirstName}" Margin="12,0,0,0" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}"/>
-                        <TextBlock Text="{Binding Author.LastName}" Margin="5,0,0,0" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}"/>
+                    <TextBlock Text="{Binding Author.FirstName}" Margin="12,0,0,0" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}"/>
+                    <TextBlock Text="{Binding Author.LastName}" Margin="5,0,0,0" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}"/>
                     </StackPanel>
                     
                     <StackPanel Orientation="Vertical">
-                        <TextBlock
-                            Text="{Binding PostDate,Converter={StaticResource RelativeTimeConverter}}"
-                            TextWrapping="Wrap" 
-                            Foreground="{StaticResource PhoneSubtleBrush}" 
-                            Style="{StaticResource PhoneTextSubtleStyle}" />
-                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" />
-                        
+                    <TextBlock
+                    Text="{Binding PostDate,Converter={StaticResource RelativeTimeConverter}}"
+                    TextWrapping="Wrap"
+                    Foreground="{StaticResource PhoneSubtleBrush}"
+                    Style="{StaticResource PhoneTextSubtleStyle}" />
+                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" />
+                    
                     </StackPanel>
                     <ItemsControl ItemsSource="{Binding Path=Attachments}" ItemTemplate="{StaticResource PostAttachmentImage}" HorizontalAlignment="Left">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <toolkit:WrapPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                    <toolkit:WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     </ItemsControl>
-                </StackPanel>-->
+                    </StackPanel>
+                -->
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Name="FriendsListItem">
-            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+            <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
                 <StackPanel Width="75" Height="75">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="Images/nophoto.jpg" Stretch="UniformToFill" />
                     </StackPanel.Background>
-                    <Image Grid.Row="0" VerticalAlignment="Top" Stretch="UniformToFill" Width="75" Height="75">
+                    <Image Grid.Row="0"
+                           Width="75"
+                           Height="75"
+                           VerticalAlignment="Top"
+                           Stretch="UniformToFill">
                         <Image.Source>
-                            <BitmapImage UriSource="{Binding Photo}" CreateOptions="BackgroundCreation"/>
+                            <BitmapImage CreateOptions="BackgroundCreation" UriSource="{Binding Photo}" />
                         </Image.Source>
                     </Image>
                 </StackPanel>
-                <StackPanel VerticalAlignment="Center" Margin="10,-12,0,0">
+                <StackPanel Margin="10,-12,0,0" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                                Text="{Binding FirstName}"
-                                TextWrapping="Wrap"
-                                Style="{StaticResource PhoneTextTitle2Style}"
-                                Margin="0,0,-10,0"/>
-                        <TextBlock Text="{Binding LastName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}"/>
+                        <TextBlock Margin="0,0,-10,0"
+                                   Style="{StaticResource PhoneTextTitle2Style}"
+                                   Text="{Binding FirstName}"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Style="{StaticResource PhoneTextTitle2Style}"
+                                   Text="{Binding LastName}"
+                                   TextWrapping="Wrap" />
                     </StackPanel>
-                    <TextBlock
-                            Text="{Binding PostDate, Converter={StaticResource RelativeTimeConverter}}"
-                            TextWrapping="Wrap" 
-                            Foreground="{StaticResource PhoneSubtleBrush}" 
-                            Style="{StaticResource PhoneTextSubtleStyle}"
-                            Margin="0,-5,0,0"/>
+                    <TextBlock Margin="0,-5,0,0"
+                               Foreground="{StaticResource PhoneSubtleBrush}"
+                               Style="{StaticResource PhoneTextSubtleStyle}"
+                               Text="{Binding OnlineStatus}"
+                               TextWrapping="Wrap" />
                 </StackPanel>
             </StackPanel>
         </DataTemplate>
@@ -179,37 +212,39 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger>
-            <GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding LoadDataCommand, Mode=OneWay}"/>
+            <GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding LoadDataCommand, Mode=OneWay}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <!--LayoutRoot contains the root grid where all other page content is placed-->
-    <Grid x:Name="LayoutRoot"
-	      Background="Transparent">
+    <!--  LayoutRoot contains the root grid where all other page content is placed  -->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Panorama Title="вконтакте">
-            <!--<controls:Panorama.TitleTemplate>
+            <!--
+                <controls:Panorama.TitleTemplate>
                 <DataTemplate>
-                    <StackPanel Height="190" Width="300">
-                        <Image Source="Images\logo.png" Margin="5,80,0,0"/>
-                    </StackPanel>
+                <StackPanel Height="190" Width="300">
+                <Image Source="Images\logo.png" Margin="5,80,0,0"/>
+                </StackPanel>
                 </DataTemplate>
-            </controls:Panorama.TitleTemplate>
-            <controls:Panorama.Background>
+                </controls:Panorama.TitleTemplate>
+                <controls:Panorama.Background>
                 <ImageBrush ImageSource="Images\background.png" />
-            </controls:Panorama.Background>-->
+                </controls:Panorama.Background>
+            -->
             <controls:PanoramaItem>
-                <!--<TextBlock Text="новости" Style="{StaticResource PhoneTextTitle1Style}" Margin="12,-40,0,0"/>-->
-                <ListBox
-                    ItemTemplate="{StaticResource FeedListItem}"
-                    ItemsSource="{Binding DataSource}"
-                    SelectedItem="{Binding SelectedFeed}"
-                    Margin="12,-55,0,0">
+                <!--  <TextBlock Text="новости" Style="{StaticResource PhoneTextTitle1Style}" Margin="12,-40,0,0"/>  -->
+                <ListBox Margin="12,-55,0,0"
+                         ItemsSource="{Binding DataSource}"
+                         ItemTemplate="{StaticResource FeedListItem}"
+                         SelectedItem="{Binding SelectedFeed}">
                     <ListBox.Template>
                         <ControlTemplate>
                             <ScrollViewer>
                                 <StackPanel>
-                                    <TextBlock Text="новости" Style="{StaticResource PhoneTextTitle1Style}" Margin="-4,-20,0,20"/>
-                                    <ItemsPresenter/>
+                                    <TextBlock Margin="-4,-20,0,20"
+                                               Style="{StaticResource PhoneTextTitle1Style}"
+                                               Text="новости" />
+                                    <ItemsPresenter />
                                 </StackPanel>
                             </ScrollViewer>
                         </ControlTemplate>
@@ -217,87 +252,90 @@
                 </ListBox>
             </controls:PanoramaItem>
             <controls:PanoramaItem>
-                <toolkit:LongListSelector
-                    x:Name="FriendList"
-                    ItemTemplate="{StaticResource FriendsListItem}"
-                    ItemsSource="{Binding FriendsDataSource}"
-                    GroupHeaderTemplate="{StaticResource FriendGroupHeader}"
-                    GroupItemTemplate="{StaticResource FriendGroupItem}"
-                    ListHeaderTemplate="{StaticResource FriendListHeader}"
-                    Margin="12,-55,0,0">
-                    <!--<toolkit:LongListSelector.Template>
+                <toolkit:LongListSelector x:Name="FriendList"
+                                          Margin="12,-55,0,0"
+                                          GroupHeaderTemplate="{StaticResource FriendGroupHeader}"
+                                          GroupItemTemplate="{StaticResource FriendGroupItem}"
+                                          ItemsSource="{Binding FriendsDataSource}"
+                                          ItemTemplate="{StaticResource FriendsListItem}"
+                                          ListHeaderTemplate="{StaticResource FriendListHeader}">
+                    <!--
+                        <toolkit:LongListSelector.Template>
                         <ControlTemplate>
-                            <ScrollViewer>
-                                <StackPanel>
-                                    <Grid Margin="12,20,0,0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid Grid.Row="0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-
-                                            <Image Grid.Column="0" VerticalAlignment="Top" Width="100" Height="100" Stretch="UniformToFill" Source="{Binding UserProfile.PhotoMedium}">
-                                            </Image>
-                                            <edc:Callout
-                                                Grid.Column="1" 
-                                                Margin="15,0,0,0"
-                                                AnchorPoint="-0.05,0.35"
-                                                CalloutStyle="Rectangle"
-                                                Content="{Binding Status}"
-                                                FontSize="20"
-                                                Height="100"
-                                                Fill="#FFC6D0DA"
-                                                Foreground="Black"/>
-                                        </Grid>
-                                    </Grid>
-                                    <ItemsPresenter />
-                                </StackPanel>
-                            </ScrollViewer>
+                        <ScrollViewer>
+                        <StackPanel>
+                        <Grid Margin="12,20,0,0">
+                        <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Image Grid.Column="0" VerticalAlignment="Top" Width="100" Height="100" Stretch="UniformToFill" Source="{Binding UserProfile.PhotoMedium}">
+                        </Image>
+                        <edc:Callout
+                        Grid.Column="1"
+                        Margin="15,0,0,0"
+                        AnchorPoint="-0.05,0.35"
+                        CalloutStyle="Rectangle"
+                        Content="{Binding Status}"
+                        FontSize="20"
+                        Height="100"
+                        Fill="#FFC6D0DA"
+                        Foreground="Black"/>
+                        </Grid>
+                        </Grid>
+                        <ItemsPresenter />
+                        </StackPanel>
+                        </ScrollViewer>
                         </ControlTemplate>
-                    </toolkit:LongListSelector.Template>-->
+                        </toolkit:LongListSelector.Template>
+                    -->
                     <toolkit:LongListSelector.GroupItemsPanel>
                         <ItemsPanelTemplate>
-                            <toolkit:WrapPanel/>
+                            <toolkit:WrapPanel />
                         </ItemsPanelTemplate>
                     </toolkit:LongListSelector.GroupItemsPanel>
-                    <!--<ListBox.Template>
+                    <!--
+                        <ListBox.Template>
                         <ControlTemplate>
-                            <ScrollViewer>
-                                <StackPanel>
-                                    <Grid Margin="12,20,0,0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid Grid.Row="0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-
-                                            <Image Grid.Column="0" VerticalAlignment="Top" Width="100" Height="100" Stretch="UniformToFill" Source="{Binding UserProfile.PhotoMedium}">
-                                            </Image>
-                                            <edc:Callout
-                                                Grid.Column="1" 
-                                                Margin="15,0,0,0"
-                                                AnchorPoint="-0.05,0.35"
-                                                CalloutStyle="Rectangle"
-                                                Content="{Binding Status}"
-                                                FontSize="20"
-                                                Height="100"
-                                                Fill="#FFC6D0DA"
-                                                Foreground="Black"/>
-                                        </Grid>
-                                    </Grid>
-                                    <ItemsPresenter/>
-                                </StackPanel>
-                            </ScrollViewer>
+                        <ScrollViewer>
+                        <StackPanel>
+                        <Grid Margin="12,20,0,0">
+                        <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Image Grid.Column="0" VerticalAlignment="Top" Width="100" Height="100" Stretch="UniformToFill" Source="{Binding UserProfile.PhotoMedium}">
+                        </Image>
+                        <edc:Callout
+                        Grid.Column="1"
+                        Margin="15,0,0,0"
+                        AnchorPoint="-0.05,0.35"
+                        CalloutStyle="Rectangle"
+                        Content="{Binding Status}"
+                        FontSize="20"
+                        Height="100"
+                        Fill="#FFC6D0DA"
+                        Foreground="Black"/>
+                        </Grid>
+                        </Grid>
+                        <ItemsPresenter/>
+                        </StackPanel>
+                        </ScrollViewer>
                         </ControlTemplate>
-                    </ListBox.Template>-->
+                        </ListBox.Template>
+                    -->
                 </toolkit:LongListSelector>
             </controls:PanoramaItem>
         </controls:Panorama>
@@ -305,11 +343,13 @@
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Minimized">
+        <shell:ApplicationBar IsMenuEnabled="True"
+                              IsVisible="True"
+                              Mode="Minimized">
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="обновить"/>
-                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="настройки"/>
-                <shell:ApplicationBarMenuItem x:Name="menuItem3" Text="выйти"/>
+                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="обновить" />
+                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="настройки" />
+                <shell:ApplicationBarMenuItem x:Name="menuItem3" Text="выйти" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

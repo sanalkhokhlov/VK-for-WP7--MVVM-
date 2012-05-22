@@ -24,6 +24,8 @@ namespace VkWP.Models
         private ProfileItem _author;
         private List<AttachmentItem> _attachments;
 
+        private const int PREVIEW_TEXT_LENGTH = 140;
+
         public string Type
         {
             get
@@ -76,7 +78,7 @@ namespace VkWP.Models
         {
             get
             {
-                return HtmlDecoder.Decode(_text);
+                return TextPreprocessor.Decode(_text);
             }
             set
             {
@@ -85,6 +87,16 @@ namespace VkWP.Models
                     this._text = value;
                     this.RaisePropertyChanged("Text");
                 }
+            }
+        }
+        /// <summary>
+        /// Gets preview version of feed's text
+        /// </summary>
+        public string PreviewText
+        {
+            get
+            {
+                return (_text.Length > PREVIEW_TEXT_LENGTH) ? TextPreprocessor.Decode(string.Format("{0}...", _text.Substring(0, PREVIEW_TEXT_LENGTH))) : TextPreprocessor.Decode(_text);
             }
         }
 
@@ -123,15 +135,15 @@ namespace VkWP.Models
 
         public DateTime PostDate
         {
-            get { return _postDate; }
-            set
-            {
-                if (_postDate != value)
-                {
-                    _postDate = value;
-                    RaisePropertyChanged("PostDate");
-                }
-            }
+            get { return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(_date)).ToLocalTime(); }
+            //set
+            //{
+            //    if (_postDate != value)
+            //    {
+            //        _postDate = value;
+            //        RaisePropertyChanged("PostDate");
+            //    }
+            //}
         }
 
         public List<AttachmentItem> Attachments

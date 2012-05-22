@@ -64,19 +64,19 @@ namespace MvvmLight1.ViewModel
                     Status = response.Response.Status.Text;
                     response.Response.News.Items.ForEach((feed) =>
                     {
-                        switch (feed.Type)
-                        {
-                            case "post":
-                                {
-                                    if (feed.Text.Length > 140) feed.Text = feed.Text.Substring(0, 140) + "...";
-                                    break;
-                                }
-                            default:
-                                {
-                                    break;
-                                }
-                        }
-                        feed.PostDate = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(feed.Date)).ToLocalTime();
+                        //switch (feed.Type)
+                        //{
+                        //    case "post":
+                        //        {
+                        //            if (feed.Text.Length > 140) feed.Text = feed.Text.Substring(0, 140) + "...";
+                        //            break;
+                        //        }
+                        //    default:
+                        //        {
+                        //            break;
+                        //        }
+                        //}
+                        //feed.PostDate = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(feed.Date)).ToLocalTime();
                         foreach (var profile in response.Response.News.Profiles.Where(profile => profile.Uid == feed.SourceId))
                         {
                             feed.Author.FirstName = profile.FirstName;

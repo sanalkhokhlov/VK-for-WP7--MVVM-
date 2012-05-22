@@ -67,6 +67,11 @@ namespace VkWP.Models
         private string _firstName;
         private string _photo;
         private string _photoMedium;
+        private bool _online;
+        /// <summary>
+        /// Key for user's online status
+        /// </summary>
+        private const int ONLINE = 1;
 
         public int Uid
         {
@@ -80,10 +85,24 @@ namespace VkWP.Models
                 }
             }
         }
+        /// <summary>
+        /// Sets user's online status
+        /// </summary>
+        public int Online
+        {
+            set { _online = (value == ONLINE); }
+        }
+        /// <summary>
+        /// Gets text representation of user's online status
+        /// </summary>
+        public string OnlineStatus
+        {
+            get { return _online ? "В сети" : string.Empty; }
+        }
 
         public string LastName
         {
-            get { return HtmlDecoder.Decode(_lastName); }
+            get { return TextPreprocessor.Decode(_lastName); }
             set
             {
                 if (_lastName != value)
@@ -94,7 +113,7 @@ namespace VkWP.Models
             }
         }
         /// <summary>
-        /// Возвращает первую букву имени
+        /// Gets first letter of FirstName
         /// </summary>
         public string FirstLetter
         {
@@ -105,13 +124,13 @@ namespace VkWP.Models
                 {
                     result = _firstName[0].ToString();
                 }
-                return HtmlDecoder.Decode(result);
+                return TextPreprocessor.Decode(result);
             }
         }
 
         public string FirstName
         {
-            get { return HtmlDecoder.Decode(_firstName); }
+            get { return TextPreprocessor.Decode(_firstName); }
             set
             {
                 if (_firstName != value)
@@ -132,7 +151,7 @@ namespace VkWP.Models
                     if (value.IndexOf(".gif") == -1)
                     {
                         _photo = value;
-                       
+
                     }
                     else
                     {
